@@ -38,7 +38,7 @@ public class Animals {
     }
 
     public void increaseLevel(){
-        if(level < 4){
+        if((level < 4) && (owner != null)){
             owner.decreaseMoney(costBuy);
             level = level + 1;
         }
@@ -55,7 +55,11 @@ public class Animals {
     public void printDetails(){
         System.out.println("-----------------------");
         System.out.println("|Species: " + nameSpecies);
-        System.out.println("|Owner: " + owner);
+        if(owner == null){
+            System.out.println("|Owner: No owner")
+        } else {
+            System.out.println("|Owner: " + owner);
+        }
         System.out.println("|Buy: " + costBuy);
         System.out.println("|Visit: " + costVisit[level]);
         System.out.println("|Level: " + level);
