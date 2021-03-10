@@ -1,6 +1,6 @@
 package com.company;
 
-public class Animals {
+public class Animal {
     private String nameSpecies;
     private int level = 0;
     private int[] costVisit;
@@ -56,7 +56,7 @@ public class Animals {
         System.out.println("-----------------------");
         System.out.println("|Species: " + nameSpecies);
         if(owner == null){
-            System.out.println("|Owner: No owner")
+            System.out.println("|Owner: No owner");
         } else {
             System.out.println("|Owner: " + owner);
         }
