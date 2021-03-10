@@ -1,32 +1,32 @@
 package com.company;
 
-public class Cards {
+import java.util.Random;
 
-    int balance;
-    int finalBalance;
+public class Card {
 
-    //array holds scenarios
-    private String scenarios[] = {"\n Well done!\nyou won the lottery!\n","Oh no!\nyou've been robbed!\n","\n "};
-    // another money array for cards deck
-    private int money[] = {100,20,200,350,80,45,1,5,75,50,450,375,205,210,410,715,670,600,720,420};
-    public static void randomCard()
+
+
+    public void randomCard()
     {
 
     }
 
     //runs through entire array for money
-    public static void getRandomScenario(String scenarios)
+    public String getRandomScenario()
+    {
+
+        Random rand = new Random();
+        int upperbound = 20;
+        int randomInt = (rand.nextInt(upperbound));
+
+        scenario = scenarios[randomInt];
+        return scenario;
+    }
+
+    // runs through entire array for scenarios
+    public int getRandomMoney()
     {
         for(int i=0; i <=20; i++)
-        {
-            scenarios = scenarios[i];
-
-        }
-    }
-    // runs through entire array for scenarios
-    public static void getRandomMoney(double money)
-    {
-        for(int i=0; i <=20; i++;)
         {
 
             money = money[i];
@@ -52,6 +52,7 @@ public class Cards {
             }
             // breaks if error - possibly could add a error ,essage incase
         }
+
     }
 
 }
