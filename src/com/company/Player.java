@@ -1,5 +1,6 @@
 package com.company;
 
+// Temporary for testing
 public class Player {
     public void increaseMoney(int amount){
         System.out.println(amount);
