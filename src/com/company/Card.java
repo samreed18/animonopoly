@@ -8,7 +8,7 @@ public class Card {
 
     public void randomCard()
     {
-
+            hello can you see this
     }
 
     //runs through entire array for money
