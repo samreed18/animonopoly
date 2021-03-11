@@ -19,7 +19,7 @@ public class Card {
         int upperbound = 20;
         int randomInt = (rand.nextInt(upperbound));
 
-        scenario = scenarios[randomInt];
+        String scenario = scenarios[randomInt];
         return scenario;
     }
 
