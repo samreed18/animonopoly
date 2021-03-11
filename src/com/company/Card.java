@@ -19,7 +19,7 @@ public class Card {
         int upperbound = 20;
         int randomInt = (rand.nextInt(upperbound));
 
-        scenario = scenarios[randomInt];
+        String scenario = scenarios[randomInt];
         return scenario;
     }
 
@@ -32,7 +32,7 @@ public class Card {
             money = money[i];
             // calls player class
             Player p = new Player();
-            balance  = p.money();
+            int balance  = p.money();
             //adds or minuses money to player total depending on scenario
             finalBalance = balance.deposit;
             // if finalBalance = balance.deposit then switch
