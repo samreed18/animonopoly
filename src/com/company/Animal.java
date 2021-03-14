@@ -1,21 +1,25 @@
 package com.company;
-
 public class Animal {
     private String nameSpecies;
-    private int level = 0;
-    private int[] costVisit;
+    private int level;
+    private int[] costVisit;  //4 levels different costs
     private int costBuy;
     private Player owner;
 
-    public void setAttributes(String speciesName, int[] visitCost, int buyCost){
-        nameSpecies = speciesName;
-        costVisit = visitCost;
-        costBuy = buyCost;
+    public Animal(String speciesName, int level0Cost, int level1Cost, int level2Cost, int level3Cost, int buyCost){
+        this.nameSpecies = speciesName;
+        this.costVisit = new int[4];
+        costVisit[0] = level0Cost;
+        costVisit[1] = level1Cost;
+        costVisit[2] = level2Cost;
+        costVisit[3] = level3Cost;
+        this.costBuy = buyCost;
+        this.level =0;
     }
 
-    public void visit(Player buyer){
+    public void visitBy(Player buyer){
         if(owner != null){
-            System.out.println("Visited for " + costVisit[level]);
+            System.out.println("Visit cost " + costVisit[level]);
             buyer.decreaseMoney(costVisit[level]);
             owner.increaseMoney(costVisit[level]);
         } else {
@@ -27,7 +31,7 @@ public class Animal {
         return costBuy;
     }
 
-    public void purchase(Player player){
+    public void purchaseBy(Player player){
         if(owner == null){
             owner = player;
             owner.decreaseMoney(costBuy);
@@ -52,17 +56,19 @@ public class Animal {
         return owner != null;
     }
 
-    public void printDetails(){
-        System.out.println("-----------------------");
-        System.out.println("|Species: " + nameSpecies);
-        if(owner == null){
-            System.out.println("|Owner: No owner");
-        } else {
-            System.out.println("|Owner: " + owner);
-        }
-        System.out.println("|Buy: " + costBuy);
-        System.out.println("|Visit: " + costVisit[level]);
-        System.out.println("|Level: " + level);
-        System.out.println("-----------------------");
+    public Player getOwner() {
+        return owner;
+    }
+
+    @Override
+    public String toString(){
+
+        String ownerMessage = (owner==null)?"\n| Owner: No owner "+adjustSpaces("| Owner: No owner "):"\n| Owner: " + owner.getID()+adjustSpaces("| Owner: " + owner.getID());
+        return "_________________________\n"+"| Species: " + nameSpecies+adjustSpaces("| Species: " + nameSpecies)+ ownerMessage+"\n| Buy: " + costBuy+adjustSpaces("| Buy: " + costBuy)+"\n| Visit: " + costVisit[level]+adjustSpaces("| Visit: " + costVisit[level])+"\n| Level: " + level+adjustSpaces("| Level: " + level)+"\n|_______________________|\n";
+    }
+
+    private String adjustSpaces(String text){
+        int numSpaces = 24 - text.length();
+        return " ".repeat(numSpaces)+"|";
     }
 }

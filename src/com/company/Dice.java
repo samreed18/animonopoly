@@ -2,10 +2,35 @@ package com.company;
 import java.util.Random;
 
 public class Dice {
-    public int getRandomNumber(){
+
+    private int value;
+
+    public void getRandomNumber(){
         Random rand = new Random();
         int upperbound = 6;
-        int randomInt = (rand.nextInt(upperbound)) + 1;
-        return randomInt;
+        value = rand.nextInt(upperbound)+1;
+
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    @Override
+    public boolean equals(Object compared){
+        if (this == compared){
+            return true;
+        }
+        if (!(compared instanceof  Dice)){
+            return false;
+        }
+        Dice comparedDice = (Dice) compared;
+
+        return (this.value == ((Dice) compared).value);
+    }
+
+    @Override
+    public String toString(){
+        return "## You rolled a "+value+" ##";
     }
 }

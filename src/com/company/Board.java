@@ -1,13 +1,17 @@
 package com.company;
 
 import java.util.ArrayList;
+
 public class Board {
     private ArrayList<Player> players = new ArrayList<>();
     private ArrayList<Animal> animals = new ArrayList<>();
-    public Board(ArrayList<Player> playerArrayList){//, ArrayList<Animal> animalArrayList){
+
+    public Board(ArrayList<Player> playerArrayList, ArrayList<Animal> animalArrayList){
         players = playerArrayList;
-        //animals = animalArrayList;
+        animals = animalArrayList;
     }
+
+
 
     public String toString(){
         String[][][] grid = new String[7][8][2];   //row~ column ~top/bottom half
@@ -16,21 +20,26 @@ public class Board {
             gridString+="_____";
         }
         gridString+="\n";
+
         /*for (int row=0;row<7;row++){
+
             for (int column=0;column<8;column++){
                 grid[row][column]="|    ";
                 gridString+=grid[row][column];
             }
             gridString+="|\n";
+
             for (int column=0;column<8;column++){
                 grid[row][column]="|____";
                 gridString+=grid[row][column];
             }
             gridString+="|\n";
         } */
+
         //fills the whole grid with squares
         for (int row=0;row<7;row++){
             for (int column=0;column<8;column++){
+
                 if (row==0){                       //adding in numbers for the top row
                     grid[0][column][0]= "|"+column+"   ";
                 }
@@ -56,6 +65,7 @@ public class Board {
             }
         }
 
+
         //big rectangle space in the middle
         for (int row=1;row<5;row++){
             grid[row][1][0]="|    ";   //inner left side edging
@@ -71,35 +81,67 @@ public class Board {
             grid[5][column][1]="_____";
         }
 
+
         grid[0][0][0]= "|GO  ";  //STRT
         grid[6][7][0]="|JAIL";
+
         //add players;
         for (Player player : players){
             char symbol = player.getPlayingPiece();
             int space = player.getLocation();
+
             int row = convertSpaceToGridCoordinates(space)[0];
             int column = convertSpaceToGridCoordinates(space)[1];
+
             //String spaceString = grid[row][column][1];
             char[] spaceCharsArray = grid[row][column][1].toCharArray();
             int nextEmptySpace = grid[row][column][1].indexOf("_");
+
             //grid[row][column][1]= "|"+symbol+"___";
             spaceCharsArray[nextEmptySpace]=symbol;
             grid[row][column][1]=String.valueOf(spaceCharsArray);
+
         }
+
 
         //adds everything to one string, separated by line breakers
         for (int row=0;row<7;row++){
+
             for (int column=0;column<8;column++){
-                gridString+=grid[row][column][0];
+                gridString+=grid[row][column][0];   //top half of box
             }
-            gridString+="|\n";
+
+            gridString+="|\t";
+            if (row>0) {      //GO (0) and JAIL (13) are excluded
+                Animal animaltoPrint = animals.get(row * 2-1);    //left column animals 1-11   *was *2
+                gridString += animalString(animaltoPrint);
+
+                animaltoPrint = animals.get(row * 2 + 11);      //right column animals 13-23  *was *2+13
+                gridString += animalString(animaltoPrint);
+            }
+
+            gridString+="\n";
+
             for (int column=0;column<8;column++){
-                gridString+=grid[row][column][1];
+                gridString+=grid[row][column][1];    //bottom half of box
             }
-            gridString+="|\n";
+
+            gridString+="|\t";
+
+            if (row<6) {
+                Animal animaltoPrint = animals.get(row * 2);     //left column animals 0-10  *was *2+1
+                gridString += animalString(animaltoPrint);
+
+                animaltoPrint = animals.get(row*2+12);       //right column animals 12-22  *was*2+14
+                gridString+=animalString(animaltoPrint);
+            }
+
+            gridString+="\n";
         }
+
         return gridString;
     }
+
     private int[] convertSpaceToGridCoordinates(int spaceNumber){
         int[] coordinates = new int[2];   //row ~ column
         if (spaceNumber<=7){
@@ -118,11 +160,14 @@ public class Board {
             coordinates[0]= 26-spaceNumber;
             coordinates[1]= 0;
         }
+
         return coordinates;
     }
+
     public void removePlayer( Player player){
         players.remove(player);
     }
+
     public Player getLastPlayer(){
         if (players.size()==1){
             return players.get(0);
@@ -130,5 +175,37 @@ public class Board {
         else{
             return null;
         }
+    }
+
+
+    public String animalsString(){
+        String message="";
+        for (Animal animal:animals){
+            int animalLocationNumber=animals.indexOf(animal)+1;
+            message+=animalLocationNumber+") ";
+            message+=animal.getName();
+            int numberOfSpaces = 15-animal.getName().length();
+            message+=" ".repeat(numberOfSpaces);
+            if (animal.hasOwner()){
+                message+=animal.getOwner().getID();
+            }
+            message+="\n";
+        }
+
+        return message;
+    }
+
+    public String animalString(Animal animal){
+        // int animalLocationNumber = animals.indexOf(animal);
+        int animalLocationNumber = (animals.indexOf(animal)<12)? (animals.indexOf(animal)+1) : (animals.indexOf((animal))+2);
+        String animalMessage= animalLocationNumber+") "+animal.getName();
+        int numberOfSpaces = 20-animalMessage.length();
+        animalMessage+=" ".repeat(numberOfSpaces);
+        if (animal.hasOwner()){
+            animalMessage+=animal.getOwner().getID();
+        }
+        numberOfSpaces = 40-animalMessage.length();
+        animalMessage+=" ".repeat(numberOfSpaces);
+        return animalMessage;
     }
 }

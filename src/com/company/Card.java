@@ -1,58 +1,61 @@
 package com.company;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Card {
+    private String scenario;
+    private int money;
 
-    p
-
-    public void randomCard()
-    {
-            hello can you see this
+    public Card(String scenario, int money){
+        this.scenario = scenario;
+        this.money = money;
     }
 
-    //runs through entire array for money
-    public String getRandomScenario()
-    {
+    @Override
+    public String toString(){
+        String myString = "_________________________\n";
+        String[] scenarioWords = scenario.split(" ");
+        ArrayList<String> scenarioWordList = new ArrayList<>(Arrays.asList(scenarioWords));
 
-        Random rand = new Random();
-        int upperbound = 20;
-        int randomInt = (rand.nextInt(upperbound));
-
-        String scenario = scenarios[randomInt];
-        return scenario;
-    }
-
-    // runs through entire array for scenarios
-    public int getRandomMoney()
-    {
-        for(int i=0; i <=20; i++)
-        {
-
-            money = money[i];
-            // calls player class
-            Player p = new Player();
-            int balance  = p.money();
-            //adds or minuses money to player total depending on scenario
-            finalBalance = balance.deposit;
-            // if finalBalance = balance.deposit then switch
-            if (finalBalance == balance.deposit)
-            {
-                finalBalance = balance.withdraw;
+        while (scenarioWordList.size()!=0){
+            String line ="|";
+            Boolean lineFull = false;
+            while (!lineFull && scenarioWordList.size()>0){
+                String nextWord = scenarioWordList.get(0);
+                if ( line.length() +nextWord.length() <24) {
+                    line += nextWord+" ";
+                    scenarioWordList.remove(0);
+                }
+                else{
+                    lineFull=true;
+                }
             }
-            // if finalBalance = balance.withdraw then switch
-            if  else (finalBalance == balance.withdraw)
-            {
-                finalBalance = balance.deposit;
-            }
-            // alternates so user can loss and win
-            else
-            {
-                break;
-            }
-            // breaks if error - possibly could add a error ,essage incase
+
+            int numSpacesLeft = 24 - line.length();
+            line+= " ".repeat(numSpacesLeft);
+            line +="|\n";
+            myString +=line;
+        }
+        myString+="|-----------------------|\n";
+        if (this.money<0){
+            String line="|Money owed ~ £"+Math.abs(money);
+            myString+=line;
+            myString +=" ".repeat(24- line.length());
+            myString+="|\n";
+        }
+        else{
+            String line="|Money earned ~ £"+money;
+            myString+=line;
+            myString +=" ".repeat(24- line.length());
+            myString+="|\n";;
         }
 
+        myString+="|_______________________|\n";
+        return myString;
     }
 
+    public int getMoney() {
+        return money;
+    }
 }
