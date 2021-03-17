@@ -111,8 +111,8 @@ public class Main {
                             if (animalLandedOn.getOwner().equals(thisPlayer)) {       //your own card
                                 String input;
                                 do {
-                                    System.out.println("Would you like to level up your own animal? (Y/N) \n");
-                                    System.out.println("Cost to Upgrade:" + animalLandedOn.getIncreaseLevelCost());
+                                    System.out.println("Cost to Upgrade:" + animalLandedOn.getIncreaseLevelCost() + "\n");
+                                    System.out.println("Would you like to level up your own animal? (Y/N)");
                                     input = reader.nextLine();
                                 }while (input.isEmpty());
                                 input = input.toUpperCase();
@@ -236,4 +236,3 @@ public class Main {
             System.out.println(e);
         }
     }
-}
