@@ -1,7 +1,7 @@
 import java.util.*;
 
-public class Main{
-    private static int time = 1;
+public class Main {
+    private static int time = 0;
     public static void main(String[] args){
         ArrayList<Player> players = new ArrayList<>();
         ArrayList<Animal> animals = new ArrayList<>();
@@ -12,7 +12,6 @@ public class Main{
         System.out.println("Welcome to Animonopoly! First enter player details\n");
         sleep(time * 1000);
         Scanner reader = new Scanner(System.in);
-
         for (int i=1; i<5;i++){
             String name;
             do {
@@ -87,7 +86,7 @@ public class Main{
                     System.out.println(thisPlayer.money());
                     sleep(time * 2000);
                     if (thisPlayer.landedOnStart()) {    //space 0
-                        System.out.println("\nYou landed start!! +£1000 ");
+                        System.out.println("\nYou landed on start!! +£1000 \n");
                         sleep(time * 1000);
                         thisPlayer.increaseMoney(1000);
                         System.out.println(thisPlayer.money());
@@ -98,7 +97,7 @@ public class Main{
                         thisPlayer.setMissAGo(true);
                     } else {    //any other space
                         if (thisPlayer.passedStart()){
-                            System.out.println("\nYou passed start! +£500 ");
+                            System.out.println("\nYou passed start! +£500 \n");
                             sleep(time * 1000);
                             thisPlayer.increaseMoney(500);
                             System.out.println(thisPlayer.money());
@@ -112,33 +111,36 @@ public class Main{
                             if (animalLandedOn.getOwner().equals(thisPlayer)) {       //your own card
                                 String input;
                                 do {
-                                    System.out.println("Cost to Upgrade:" + animalLandedOn.getIncreaseLevelCost() + "\n");
+                                    System.out.println("Cost to Upgrade: " + animalLandedOn.getIncreaseLevelCost() + "\n");
+                                    sleep(time * 1000);
                                     System.out.println("Would you like to level up your own animal? (Y/N)");
                                     input = reader.nextLine();
                                 }while (input.isEmpty());
                                 input = input.toUpperCase();
                                 char levelUp = input.charAt(0);
-                                // char levelUp='Y';
+                                 //char levelUp='Y';
                                 if (levelUp == 'Y') {
                                     animalLandedOn.increaseLevel();
                                     System.out.println(animalLandedOn);
                                 }
                             } else {
                                 animalLandedOn.visitBy(thisPlayer);     //someone else's card
+                                sleep(1000*time);
                             }
                         } else {
-                            String input;
-                            do {
-                                System.out.println("Would you like to buy this animal? (Y/N)");
-                                input = reader.nextLine();
-                            }while(input.isEmpty());
-                            input = input.toUpperCase();
-                            char answer = input.charAt(0);
-                            // char answer='Y';
+//                            String input;
+//                            do {
+//                                System.out.println("Would you like to buy this animal? (Y/N)");
+//                                input = reader.nextLine();
+//                            }while(input.isEmpty());
+//                            input = input.toUpperCase();
+//                            char answer = input.charAt(0);
+                             char answer='Y';
                             if (answer == 'Y') {
                                 animalLandedOn.purchaseBy(thisPlayer);
-                                System.out.println(animalLandedOn);
                                 sleep(time * 1000);
+                                System.out.println(animalLandedOn);
+                                sleep(time * 1800);
                             }
                         }
                         System.out.println(thisPlayer.money());
@@ -147,13 +149,14 @@ public class Main{
                 }
                 if (thisPlayer.hasNoMoney()){
                     gameBoard.removePlayer(thisPlayer);
-                    System.out.println(thisPlayer.getID()+" is bankrupt! You are out of the game :(");
+                    System.out.println("\n"+thisPlayer.getID()+" is bankrupt! You are out of the game :(");
+                    sleep(time*2000);
                     break;   //breaks out of current for each loop?
                 }
             }
         }
         Player winner = gameBoard.getLastPlayer();
-        System.out.println(winner.getID() + " is the winner of Animonopoly! ");
+        System.out.println("\n"+winner.getID() + " is the winner of Animonopoly! ");
 
 
 
@@ -223,9 +226,9 @@ public class Main{
         cards[12]= new Card("You won the lottery!", 1000);
         cards[13]= new Card("You went on a trip to LA but broke you arm, now you have to pay to be seen to", -450);
         cards[14]= new Card("You got robbed!", -50);
-        cards[15]= new Card("A fake psychic reels you in, and he tells that you're going to loose money in the near future...\nsounds about right", -450);
-        cards[16]= new Card("You've seduced a millionare and now they're sharing their lavish riches with you!", 1500);
-        cards[17]= new Card("You're staring a resvoir for endangered animals, your local council approves and has given you some funding money", 1000);
+        cards[15]= new Card("A fake psychic reels you in, and he tells that you're going to loose money in the near future... sounds about right", -450);
+        cards[16]= new Card("You've seduced a millionaire and now they're sharing their lavish riches with you!", 1500);
+        cards[17]= new Card("You're staring a reservoir for endangered animals, your local council approves and has given you some funding money", 1000);
         cards[18]= new Card("You decided to go to a  pawnbroker to try your luck on some old belongings", 450);
         cards[19]= new Card("You went to the bank to check on your savings account, and decided to claim your interest", 200);
     }
@@ -237,3 +240,4 @@ public class Main{
             System.out.println(e);
         }
     }
+}
