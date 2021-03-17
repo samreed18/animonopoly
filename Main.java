@@ -1,15 +1,16 @@
 import java.util.*;
 
 public class Main {
+    private static int time = 0;
     public static void main(String[] args){
         ArrayList<Player> players = new ArrayList<>();
         ArrayList<Animal> animals = new ArrayList<>();
         fillArrayWithAnimals(animals);
-        Card[] chanceCards = new Card[8];
+        Card[] chanceCards = new Card[20];
         fillCardsArray(chanceCards);
         Deck chanceCardsDeck = new Deck(chanceCards);
         System.out.println("Welcome to Animonopoly! First enter player details\n");
-        sleep(1000);
+        sleep(time * 1000);
         Scanner reader = new Scanner(System.in);
         for (int i=1; i<5;i++){
             String name;
@@ -31,7 +32,7 @@ public class Main {
                 String playingPieceInput;
                 do {
                     System.out.println("Enter a character for your playing piece: ");
-                     playingPieceInput= reader.nextLine();
+                    playingPieceInput= reader.nextLine();
                 }while (playingPieceInput.isEmpty());
                 playingPiece = playingPieceInput.charAt(0);
                 playingSymbolTaken = false;
@@ -46,77 +47,77 @@ public class Main {
             players.add(player);
         }
         Board gameBoard = new Board(players, animals);
-        sleep(1000);
+        sleep(time * 1000);
         System.out.println(gameBoard);
         System.out.println("This is the game board, the game is about to start...");
-        sleep(2000);
+        sleep(time * 2000);
         while(gameBoard.getLastPlayer()==null) {
             for (Player thisPlayer : players) {
                 for (int i=0;i<100;i++){
                     System.out.print(".");
-                    sleep(10);
+                    sleep(time * 10);
                 }
                 if (thisPlayer.isMissAGo()){
                     System.out.println("\n"+thisPlayer.getID()+" is in jail so misses a go :(");
-                    sleep(2000);
+                    sleep(time * 2000);
                     thisPlayer.setMissAGo(false);
                 }
                 else {
                     System.out.println("\n" + thisPlayer.getID() + " 's turn: \n");
-                    sleep(1000);
+                    sleep(time * 1000);
                     System.out.println(thisPlayer.money());
-                    sleep(1000);
+                    sleep(time * 1000);
                     thisPlayer.move();
-                    sleep(1000);
+                    sleep(time * 1000);
                     if (thisPlayer.rolledADouble()){
                         System.out.println("\nYou rolled a double! Test out your luck with a chance card");
-                        sleep(2000);
+                        sleep(time * 2000);
                         Card chosenCard = chanceCardsDeck.getRandomCard();
                         System.out.println(chosenCard);
-                        sleep(3000);
+                        sleep(time * 3000);
                         thisPlayer.increaseMoney(chosenCard.getMoney());   //if money is negative it adds on the negative like a subtraction
                         System.out.println(thisPlayer.money());
-                        sleep(2000);
+                        sleep(time * 2000);
                     }
                     System.out.println(thisPlayer);    //location
-                    sleep(2000);
+                    sleep(time * 2000);
                     System.out.println(gameBoard);
-                    sleep(3000);
+                    sleep(time * 3000);
                     System.out.println(thisPlayer.money());
-                    sleep(2000);
+                    sleep(time * 2000);
                     if (thisPlayer.landedOnStart()) {    //space 0
                         System.out.println("\nYou landed start!! +£1000 ");
-                        sleep(1000);
+                        sleep(time * 1000);
                         thisPlayer.increaseMoney(1000);
                         System.out.println(thisPlayer.money());
-                        sleep(1000);
+                        sleep(time * 1000);
                     } else if (thisPlayer.landedOnMissAGo()) { //space 13
                         System.out.println("\nUnlucky you landed in jail D:");
-                        sleep(2000);
+                        sleep(time * 2000);
                         thisPlayer.setMissAGo(true);
                     } else {    //any other space
                         if (thisPlayer.passedStart()){
                             System.out.println("\nYou passed start! +£500 ");
-                            sleep(1000);
+                            sleep(time * 1000);
                             thisPlayer.increaseMoney(500);
                             System.out.println(thisPlayer.money());
-                            sleep(1000);
+                            sleep(time * 1000);
                         }
                         // Animal animalLandedOn= animals.get(thisPlayer.getLocation());
                         Animal animalLandedOn = (thisPlayer.getLocation() < 13) ? (animals.get(thisPlayer.getLocation() - 1)) : (animals.get(thisPlayer.getLocation() - 2));    //gets the animal it lands on - adjusts for the array index difference because of missing 0 and 13 card
                         System.out.println(animalLandedOn);   //prints the animal card it lands on
-                        sleep(2500);
+                        sleep(time * 2500);
                         if (animalLandedOn.hasOwner()) {
                             if (animalLandedOn.getOwner().equals(thisPlayer)) {       //your own card
                                 String input;
                                 do {
-                                    System.out.println("Would you like to level up your own animal? (Y/N) \n");
-                                    System.out.println("Cost to Upgrade:" + animalLandedOn.getIncreaseLevelCost());
+                                    System.out.println("Cost to Upgrade:" + animalLandedOn.getIncreaseLevelCost() + "\n");
+                                    System.out.println("Would you like to level up your own animal? (Y/N)");
                                     input = reader.nextLine();
                                 }while (input.isEmpty());
                                 input = input.toUpperCase();
                                 char levelUp = input.charAt(0);
-                               // char levelUp='Y';
+                                // char levelUp='Y';
                                 if (levelUp == 'Y') {
                                     animalLandedOn.increaseLevel();
                                     System.out.println(animalLandedOn);
@@ -132,15 +133,15 @@ public class Main {
                             }while(input.isEmpty());
                             input = input.toUpperCase();
                             char answer = input.charAt(0);
-                           // char answer='Y';
+                            // char answer='Y';
                             if (answer == 'Y') {
                                 animalLandedOn.purchaseBy(thisPlayer);
                                 System.out.println(animalLandedOn);
-                                sleep(1000);
+                                sleep(time * 1000);
                             }
                         }
                         System.out.println(thisPlayer.money());
-                        sleep(2000);
+                        sleep(time * 2000);
                     }
                 }
                 if (thisPlayer.hasNoMoney()){
@@ -150,10 +151,6 @@ public class Main {
                 }
             }
         }
-        Player winner = gameBoard.getLastPlayer();
-        System.out.println(winner.getID() + " is the winner of Animonopoly! ");
-    }
-
         Player winner = gameBoard.getLastPlayer();
         System.out.println(winner.getID() + " is the winner of Animonopoly! ");
 
@@ -175,7 +172,7 @@ public class Main {
         System.out.println(player1);
         System.out.println(player2);
         System.out.println(flamingo);  */
-    }
+}
 
     public static void fillArrayWithAnimals(ArrayList<Animal> animals){
         Animal flamingo = new Animal("Flamingo",10,20,30,40,60);
@@ -230,7 +227,6 @@ public class Main {
         cards[17]= new Card("You're staring a resvoir for endangered animals, your local council approves and has given you some funding money", 1000);
         cards[18]= new Card("You decided to go to a  pawnbroker to try your luck on some old belongings", 450);
         cards[19]= new Card("You went to the bank to check on your savings account, and decided to claim your interest", 200);
-        cards[20]= new Card("You're in jail for a petty fight and your friend loaned you money for bail", -420);
     }
 
     public static void sleep(int time){
