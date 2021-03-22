@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Main {
-    private static int time = 0;
+    private static int time = 1;
     public static void main(String[] args){
         ArrayList<Player> players = new ArrayList<>();
         ArrayList<Animal> animals = new ArrayList<>();
@@ -128,14 +128,14 @@ public class Main {
                                 sleep(1000*time);
                             }
                         } else {
-//                            String input;
-//                            do {
-//                                System.out.println("Would you like to buy this animal? (Y/N)");
-//                                input = reader.nextLine();
-//                            }while(input.isEmpty());
-//                            input = input.toUpperCase();
-//                            char answer = input.charAt(0);
-                             char answer='Y';
+                           String input;
+                           do {
+                               System.out.println("Would you like to buy this animal? (Y/N)");
+                               input = reader.nextLine();
+                           }while(input.isEmpty());
+                           input = input.toUpperCase();
+                           char answer = input.charAt(0);
+                             //char answer='Y';
                             if (answer == 'Y') {
                                 animalLandedOn.purchaseBy(thisPlayer);
                                 sleep(time * 1000);
