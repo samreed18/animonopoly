@@ -12,6 +12,10 @@ public class Dice {
     }
 
     public int getValue() {
+        //for(int x=0;x<40;x++){
+        //    getRandomNumber();
+        //    System.out.println(value);
+        //}
         return value;
     }
 

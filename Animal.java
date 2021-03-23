@@ -18,7 +18,7 @@ public class Animal {
 
     public void visitBy(Player buyer){
         if(owner != null){
-            System.out.println("Visiting the "+nameSpecies+" cost: " + costVisit[level]+"\n");
+            System.out.println("Visit cost " + costVisit[level]);
             buyer.decreaseMoney(costVisit[level]);
             owner.increaseMoney(costVisit[level]);
         } else {
