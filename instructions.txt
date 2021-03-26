@@ -1,0 +1,20 @@
+Animonoply Instructions
+#######################
+
+RULES
+#####
+
+1. Collect £500 when passing GO
+2. Collect £1000 when landing on GO
+3. When landed on JAIL miss a go
+
+
+HOW TO PLAY
+###########
+
+Enter The Player Details. You can have 2-4 players,
+Press enter if you only want 2 or 3 players.
+
+Player 1 will roll first
+
+...
