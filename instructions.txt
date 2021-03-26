@@ -31,4 +31,8 @@ If the animal you landed on is owned by someone else:
 If you landed on jail:
   You will miss your next go.
   
+Then this repeats for each round.
 
+When someone goes bankrupt, this will be displayed and the player will automatically go out.
+
+The last player to be in the game wins.
