@@ -6,8 +6,7 @@ RULES
 
 1. Collect £500 when passing GO
 2. Collect £1000 when landing on GO
-3. When landed on JAIL miss a go
-
+3. When landed on JAIL you miss a go
 
 HOW TO PLAY
 ###########
@@ -17,4 +16,19 @@ Press enter if you only want 2 or 3 players.
 
 Player 1 will roll first
 
-...
+The dice will be rolled and displayed. You will move on the board as your chosen character.
+If you roll a double, a chance card will be randomly chosen. This will either take money or give you money.
+
+If the animal you landed on is unowned:
+  You can choose to buy the animal for the cost displayed
+  
+If the animal you landed on is owned by you:
+  You can choose whether or not to upgrade the animal.
+  
+If the animal you landed on is owned by someone else:
+  You pay the owner the cost to visit displayed.
+  
+If you landed on jail:
+  You will miss your next go.
+  
+
